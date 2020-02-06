@@ -4,4 +4,4 @@ Each branch is a unit of note and codes organization.
 
 
 **ATTENTION**
-Multi-threaded algorithm parts will be done in python or other languages.
+Multi-threaded algorithm parts will be done in `python` or other languages.
