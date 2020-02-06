@@ -68,11 +68,11 @@ void Output_upper_triangle(int **A,int n)//A[0..n-1 x 0..n-1]
     printf("\n");
 }
 
-int Matrix_chain_Order(int p[],int n)//ATTENTION p[0,...,n]
+int Matrix_chain_Order(int p[],int n,int **&s)//ATTENTION p[0,...,n]
 //p.length=n+1
 {
     int **m = InitTables(n, n);
-    int **s = InitTables(n - 1, n - 1);
+    s = InitTables(n - 1, n - 1);
     for (int L = 2; L <= n;L++)//L is chain length
     {
         for (int i = 1; i <= n - L + 1;i++)
@@ -95,11 +95,32 @@ int Matrix_chain_Order(int p[],int n)//ATTENTION p[0,...,n]
     return m[0][n - 1];
 }
 
+//restructure
+void Print_optimal_parens(int **s,int i,int j)
+{
+    if(i==j)
+    {
+        printf("A%d", i);
+    }
+    else
+    {
+        printf(" ( ");
+        Print_optimal_parens(s, i, s[i-1][j-1]);
+        Print_optimal_parens(s, s[i - 1][j - 1] + 1, j);
+        printf(" ) ");
+    }
+}
+
+
+
 void test1()
 {
     int p[7] = {30, 35, 15, 5, 10, 20, 25};
-    int sum = Matrix_chain_Order(p, 6);
+    int **s = NULL;
+    int sum = Matrix_chain_Order(p, 6,s);
     printf("%d\n", sum);
+    Print_optimal_parens(s, 1, 6);
+    printf("\n");
 }
 
 int main()
